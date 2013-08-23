@@ -13,47 +13,42 @@ if (isset($_POST['signup']))
 	else
 		$erreurs[] = "Le couple login/mot de passe fourni ne correspond pas.";
 }
+
+include ('includes/header.php');
+
+if (count($erreurs)) :
 ?>
-<html>
-	<head>
-		<meta charset="UTF-8" />
-	</head>
-	
-	<body>
-		<?php
-		if (count($erreurs)) :
-		?>
-			<ul class="erreurs">
-				<li>
-					<?php echo implode('</li><li>', $erreurs); ?>
-				</li>
-			</ul>
-		<?php
-		endif;
+	<ul class="erreurs">
+		<li>
+			<?php echo implode('</li><li>', $erreurs); ?>
+		</li>
+	</ul>
+<?php
+endif;
+
+if ($showForm) :
+?>
+	<form method="post">
+		<p>
+			<label for="login">Login :</label>
+			<input type="text" name="login" id="login" />
+		</p>
 		
-		if ($showForm) :
-		?>
-			<form method="post">
-				<p>
-					<label for="login">Login :</label>
-					<input type="text" name="login" id="login" />
-				</p>
-				
-				<p>
-					<label for="password">Mot de passe :</label>
-					<input type="password" name="password" id="password" />
-				</p>
-				
-				<p><input type="submit" name="signup" value="Se connecter" /></p>
-			</form>
-			
-			<a href="sign-in.php">Inscription</a>
-		<?php
-		else :
-		?>
-			ACCUEIL ADMIN
-		<?php
-		endif;
-		?>
-	</body>
-</html>
+		<p>
+			<label for="password">Mot de passe :</label>
+			<input type="password" name="password" id="password" />
+		</p>
+		
+		<p><input type="submit" name="signup" value="Se connecter" /></p>
+	</form>
+	
+	<a href="sign-in.php">Inscription</a>
+<?php
+else :
+?>
+	ACCUEIL ADMIN
+<?php
+endif;
+
+include ('includes/footer.php');
+?>

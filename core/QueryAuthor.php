@@ -1,6 +1,53 @@
 <?php
 class Ecm_QueryAuthor
 {
+	protected static $globalQuery = NULL;
+	protected static $currentResult = NULL;
+	protected static $currentAuthor = NULL;
+	
+	public static function find ($args = array(), $saveAsGlobal = FALSE)
+	{
+		global $Ecm_db;
+		
+		if (self::$globalQuery && !count($args))
+			$query = self::$globalQuery;
+		else
+		{
+			$where = array();
+				
+			foreach ($args as $field => $value)
+			{
+				switch ($field)
+				{
+					case "author-id" :
+						$where['authors.id'] = $value;
+					break;
+				}
+			}
+			
+			$where = count($where) ? 'Where ' . $Ecm_db->processConjonction($where) : '';
+			
+			$query = "Select * From authors $where";
+			
+			if ($saveAsGlobal)
+				self::$globalQuery = $query;
+		}
+		
+		self::$currentResult = $Ecm_db->query($query);
+	}
+	
+	public static function next ()
+	{
+		global $Ecm_db;
+		$toi = Ecm_Author::constructFromDb($Ecm_db->fetch(self::$currentResult));
+		
+		if (!$toi)
+			self::$currentResult = NULL;
+		
+		self::$currentAuthor = $toi;
+		return $toi;
+	}
+	
 	public static function insert ($login, $password, $email)
 	{
 		global $Ecm_db;
@@ -51,5 +98,10 @@ class Ecm_QueryAuthor
 		$result = $Ecm_db->query($query);
 		
 		return Ecm_Author::constructFromDb($Ecm_db->fetch($result));
+	}
+	
+	public static function getCurrentAuthor ()
+	{
+		return self::$currentAuthor;
 	}
 }

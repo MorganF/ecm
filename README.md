@@ -1,4 +1,0 @@
-ecm
-===
-
-Easy Content Manager

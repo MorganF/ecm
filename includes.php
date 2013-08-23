@@ -13,9 +13,9 @@ require_once('core/QueryAuthor.php');
 $installPath = '/ECM/';
 $currentTemplate = 'simple';
 
-$urlPatternCategories	= ':category-title:';
-$urlPatternPosts		= ':category-title:/:post-title:\.html';
-$urlPatternAuthors		= 'auteur/:author-login:';
+$permaStructureCategories	= ':category-title:';
+$permaStructurePosts		= ':category-title:/:post-title:.html';
+$permaStructureAuthors		= 'auteur/:author-login:';
 
 // GLOBAL
 $Ecm_db = new Ecm_DbInterface();

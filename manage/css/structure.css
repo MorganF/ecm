@@ -1,0 +1,129 @@
+body
+{
+	padding: 0;
+	margin: 0;
+	color: #000;
+	font-size: 14px;
+	font-family: Arial, sans-serif;
+}
+
+#contentGlobal
+{
+	padding: 15px;
+}
+
+#contentWrapper
+{
+	display: table;
+	border-collapse: collapse;
+	width: 100%;
+}
+         
+#contentRow
+{
+	display: table-row;
+}
+         
+#content
+{
+	display: table-cell;
+	vertical-align: top;
+}
+         
+#sideRight
+{
+	display: table-cell;
+	width: 20%;
+	min-width: 250px;
+	padding-left: 15px;
+	vertical-align: top;
+}
+
+.contentBlock
+{
+	background: #F5F5F5;
+	padding: 15px;
+	border-radius: 5px;
+}
+
+.contentBlock + .contentBlock
+{
+	margin-top: 15px;
+}
+
+.sideBlock
+{
+	background: #F5F5F5;
+	padding: 15px;
+	border-radius: 5px;
+}
+
+.sideBlock + .sideBlock
+{
+	margin-top: 15px;
+}
+
+.sideBlock .title
+{
+	text-transform: uppercase;
+	color: #3C3C3C;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 0 15px;
+    text-align: center
+}
+
+.buttonBlue
+{
+	display: inline-block;
+	min-width: 125px;
+	margin: 0;
+	padding: 5px 15px;
+	background-color: #2C6F8A;
+	background-image: linear-gradient(to bottom, #2C6F8A, #286D8A);
+	border-color: #21759B #21759B #1E6A8D;
+	border-radius: 5px;
+	box-shadow: 0 1px 0 rgba(120, 200, 230, 0.5) inset;
+	color: #FFF;
+	text-decoration: none;
+	text-align: center;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	border-style: solid;
+	border-width: 1px;
+	cursor: pointer;
+	white-space: nowrap;
+	font-weight: bold;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+.buttonBlue:hover
+{
+	box-shadow: 0 -1px 0 #FFF inset;
+}
+
+.buttonGray
+{
+	display: inline-block;
+	min-width: 125px;
+	margin: 0;
+	padding: 5px 15px;
+	background-color: #DEDEDE;
+	background-image: linear-gradient(to top, #DEDEDE, #FCFCFC);
+	border-color: #DEDEDE;
+	border-radius: 5px;
+	box-shadow: 0 1px 0 rgba(222, 222, 222, 0.5) inset;
+	color: #000;
+	text-decoration: none;
+	text-align: center;
+	border-radius: 5px;
+	border-style: solid;
+	border-width: 1px;
+	cursor: pointer;
+	white-space: nowrap;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}

@@ -1,17 +1,19 @@
-<div id="content">
-	<h1>POST</h1>
-	
-	<?php
-	Ecm_QueryPosts::find();
-	
-	while ($post = Ecm_QueryPosts::next()) :
-	?>
+<?php
+$post = Ecm_QueryPosts::getCurrentPost();
+
+include ('header.php');
+?>
+
+<div id="contentWrapper">
+	<div id="content">
+		<h1><?php echo $post->getTitle(); ?></h1>
+		
 		<div class="post">
-			<p class="title"><?php echo $post->getTitle(); ?></p>
-			
 			<?php echo $post->getContent(); ?>
 		</div>
-	<?php
-	endwhile;
-	?>
+	</div>
+	
+	<?php include ('sidebar-post.php'); ?>
 </div>
+
+<?php include ('footer.php'); ?>

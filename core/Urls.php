@@ -1,7 +1,7 @@
 <?php
 class Ecm_Urls
 {
-	const PLR_CATEGORY_TITLE		=	'category-title';
+	const PLR_CATEGORY_TITLE	=	'category-title';
 	const PLR_POST_TITLE		=	'post-title';
 	const PLR_POST_ID			=	'post-id';
 	const PLR_AUTHOR_LOGIN		=	'author-login';
@@ -34,7 +34,47 @@ class Ecm_Urls
 		return $slug;
 	}
 	
-	public static function getUriPattern ($pattern, $exclude = NULL)
+	/**
+	 * @Author Morgan Fabre
+	 * Génère un slug en assurant qu'il n'en existe pas déjà un identique en base de données
+	 * @param Texte à convertir
+	 * @param Optionnellement, on peut indiquer le slug courant pour éviter d'en recréer un nouveau puisque déjà présent en base
+	 */
+	public static function slugItUnique ($texte, $currentSlug = NULL)
+	{
+		// Si le slug ne change pas
+		if ($currentSlug && $currentSlug == self::slugIt($texte))
+			return $currentSlug;
+		
+		global $Ecm_db;
+		$index = 1;
+		
+		// Sinon, 
+		do
+		{
+			$slug = self::slugIt($texte . ($index == 1 ? '' : ' ' . $index));
+			$exists = FALSE;
+			
+			$query = "Select slug From posts Union Select slug From categories";
+			$result = $Ecm_db->query($query);
+			
+			while (!$exists && ($row = $Ecm_db->fetch($result)))
+				if ($row->slug == $slug)
+					$exists = TRUE;
+			
+			$index++;
+		} while ($exists);
+		
+		return $slug;
+	}
+	
+	/**
+	 * @Author Morgan Fabre
+	 * Détermine le pattern (REGEX) d'une URI
+	 * @param unknown_type $pattern
+	 * @param unknown_type $exclude
+	 */
+	public static function getPermaStructurePattern ($pattern, $exclude = NULL)
 	{
 		foreach (self::$replaces as $replace => $replacement)
 		{
@@ -50,7 +90,7 @@ class Ecm_Urls
 	public static function getSlugFromUri ($uri, $pattern, $plr)
 	{
 		$plr = ':' . $plr . ':';
-		$pattern = self::getUriPattern($pattern, $plr);
+		$pattern = self::getPermaStructurePattern($pattern, $plr);
 		
 		// Si le permalien correspond au slug du template courant
 		if ($pattern == $plr)
@@ -59,7 +99,7 @@ class Ecm_Urls
 		{
 			$pos = strpos($pattern, $plr);
 			$left = substr($pattern, 0, $pos);
-			$right = substr($pattern, $pos + strlen($plr) + 1);
+			$right = substr($pattern, $pos + strlen($plr));
 			$slug = preg_replace('#^' . $left . '#', '', $uri);
 			$slug = preg_replace('#' . $right . '$#', '', $slug);
 		}

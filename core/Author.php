@@ -34,4 +34,9 @@ class Ecm_Author
 	{
 		return $this->email;
 	}
+	
+	public function getPermalink ()
+	{
+		return '/auteur/' . $this->login;
+	}
 }
